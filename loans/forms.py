@@ -1,5 +1,5 @@
 from django import forms
-from loans.models import * 
+from loans.models import Profile 
 
 #Modified signup form to add phone number
 class SignupForm(forms.ModelForm):
