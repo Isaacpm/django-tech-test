@@ -24,7 +24,8 @@ class Business(models.Model):
     user = models.ForeignKey(User)
     address1 = models.CharField(max_length=1024)
     address2 = models.CharField( max_length=1024)
-    post_code = models.CharField(max_length=9)
+    #Post code has a max of 9 characters
+    post_code = models.CharField(max_length=9) 
     city_name = models.CharField(max_length=1024)
 
 #Model used to define the Business data, assuming here a business could have more than one loan. So normalizing the loan information.
