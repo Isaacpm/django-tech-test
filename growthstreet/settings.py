@@ -29,6 +29,9 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
+#Redirection to home page after login
+LOGIN_REDIRECT_URL = "/"
+
 # Application definition
 
 INSTALLED_APPS = (

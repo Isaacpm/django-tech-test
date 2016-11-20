@@ -1,7 +1,15 @@
 <html>
 <!--Basic html scheleton in order to access the different functions of the app-->
-<p><a href="accounts/login">Login</a></p>
+<!--Different menu for an authenticated user than for a non autheticated one
+if the user is authenticated it will be able to request a loan or logout
+if the user it not authenticated it will be able to login or signup-->
+{% if user.is_authenticated %}
+Welcome {{user}}
 <p><a href="business/">Request loan</a></p>
-<p><a href="accounts/signup">SignUp</a></p>
 <p><a href="accounts/logout">Logout</a></p>
+{% else %}
+Please sign in or create an account in order to access the application
+<p><a href="accounts/login">Login</a></p>
+<p><a href="accounts/signup">SignUp</a></p>
+{% endif %}
 </html>
