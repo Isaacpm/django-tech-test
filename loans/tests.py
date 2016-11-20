@@ -3,6 +3,8 @@ from django.core.urlresolvers import resolve
 from loans.views import home_page
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+from loans.models import Business, Loan
 
 #We need to check that the frontend urls exist and being parsed correctly
 class UrlTests(TestCase):
@@ -28,3 +30,61 @@ class UrlTests(TestCase):
         self.assertIn(b'<p><a href="accounts/signup">SignUp</a></p>', response.content)
         self.assertIn(b'<p><a href="accounts/logout">Logout</a></p>', response.content)
         self.assertTrue(response.content.endswith(b'</html>'))
+
+
+#Tests for the DB models
+class ModelsTests(TestCase):
+    def test_creating_and_retrieving_user(self):
+        user_object = User()
+        user_object.name = "test"
+        user_object.phone_number = "12345678"
+        user_object.email = "test@testing.com"
+        user_object.save()
+
+    def test_creating_and_retrieving_business(self):
+        #We need a user object first in order to be able to add the business
+        user_object = User()
+        user_object.name = "test"
+        user_object.phone_number = "12345678"
+        user_object.email = "test@testing.com"
+        user_object.save()
+
+        business_object = Business()
+        business_object.business_name = "Test business"
+        business_object.registered_company_number = "12345678"
+        business_object.business_sector = "Food & Drink"
+        business_object.user = user_object
+        business_object.address1 = "Test Address 1"
+        business_object.address2 = "Test Address 2"
+        business_object.post_code = "ES1 34GH"
+        business_object.city_name = "London"
+        business_object.save()
+
+    def test_creating_and_retrieving_loans(self):
+        #We need a user object first in order to be able to add the business
+        user_object = User()
+        user_object.name = "test"
+        user_object.phone_number = "12345678"
+        user_object.email = "test@testing.com"
+        user_object.save()
+
+        #We need a business object in order to to be able to add the loan
+        business_object = Business()
+        business_object.business_name = "Test business"
+        business_object.registered_company_number = "12345678"
+        business_object.business_sector = "Food & Drink"
+        business_object.user = user_object
+        business_object.address1 = "Test Address 1"
+        business_object.address2 = "Test Address 2"
+        business_object.post_code = "ES1 34GH"
+        business_object.city_name = "London"
+        business_object.save()
+
+        #We need a user object first in order to be able to add the business
+        loan_object = Loan()
+        loan_object.number_of_days = 25
+        loan_object.amount = 50000
+        loan_object.reason = "Test Loan"
+        loan_object.user = user_object
+        loan_object.business = business_object
+        loan_object.save()
