@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
-#Redirection to home page after login
+#Redirection to home page after login, we need to do this as we don't have a profile page. Which is the default redirection
 LOGIN_REDIRECT_URL = "/"
 
 # Application definition
@@ -120,7 +120,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }
 

@@ -1,12 +1,13 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-#Import all views from the loans applications, as we will use all of them.
+#Import all views from the loans applications, as we are using all of them.
 from loans.views import *
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^business/', include('allauth.urls')),
-    url(r'^loan/', include('allauth.urls')),
+    url(r'^business/', AddViewBusiness, name='business'),
+    url(r'^business_form/', AddViewBusinessForm),
+    url(r'^loan/', AddViewLoan.as_view(), name='loan'),
     url(r'^$', HomePage)
 ]

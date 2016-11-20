@@ -1,0 +1,12 @@
+<html>
+    <body>
+
+        <h1>Please add your business here, or select a previous one</h1>
+
+        <form action="{% url 'business' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Save">
+        </form>
+
+    </body>
+</html>
