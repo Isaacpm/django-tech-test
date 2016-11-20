@@ -1,6 +1,6 @@
 from rest_framework import serializers
 #We are going to use all the classes from the models file
-from loans.models import Business, Loans
+from loans.models import Business, Loan
 
 class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
