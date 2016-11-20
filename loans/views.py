@@ -3,8 +3,16 @@ from loans.models import Business, Loan
 from loans.serializers import BusinessSerializer, LoanSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
 
 
+class AddViewBusiness(generics.ListCreateAPIView):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
+"""
 class AddViewBusiness(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'add_view_business.html'
@@ -18,8 +26,8 @@ class AddViewBusiness(APIView):
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'business_objects': business_objects})
         serializer.save()
-        return redirect('/')
-
+        return redirect('/loan/')
+"""
 class AddViewLoan(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'add_view_loan.html'

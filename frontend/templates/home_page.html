@@ -5,7 +5,7 @@ if the user is authenticated it will be able to request a loan or logout
 if the user it not authenticated it will be able to login or signup-->
 {% if user.is_authenticated %}
 Welcome {{user}}
-<p><a href="business/">Request loan</a></p>
+<p><a href="business_form/">Request loan</a></p>
 <p><a href="accounts/logout">Logout</a></p>
 {% else %}
 Please sign in or create an account in order to access the application

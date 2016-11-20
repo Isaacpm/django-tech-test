@@ -1,13 +1,20 @@
 {% load rest_framework %}
 
-<html><body>
+<html>
+    <body>
 
-<h1>Loan - {{ loan.reason }}</h1>
+        <h1>Loan - {{ loan.reason }}</h1>
 
-<form action="{% url 'loan' %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <input type="submit" value="Save">
-</form>
-
-</body></html>
+        <form onSubmit="return checkSubmission();">
+            {% csrf_token %}
+            {% render_form serializer %}
+            <input type="submit" value="Save">
+        </form>
+        <script>
+            
+            function checkSubmission(){
+                document.location.href = '/';
+            }
+            </script>
+    </body>
+</html>
