@@ -33,4 +33,4 @@ class Loan(models.Model):
     number_of_days = models.PositiveIntegerField()
     reason = models.CharField(max_length=1024)
     user = models.ForeignKey(User)
-    business_id = models.ForeignKey(Business)
+    business = models.ForeignKey(Business)
