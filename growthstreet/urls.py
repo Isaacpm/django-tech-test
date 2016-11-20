@@ -1,8 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-#Import all views from the loans and frontend applications, as we are using all of them.
-from loans.views import *
-from frontend.views import *
+#Import required views from loans and frontend applications
+from loans.views import AddViewBusiness, AddViewLoan
+from frontend.views import HomePage, AddViewBusinessForm
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
