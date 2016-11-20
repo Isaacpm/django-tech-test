@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'rest_framework',
     'loans',
+    'frontend'
 )
 
 

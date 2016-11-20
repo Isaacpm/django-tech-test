@@ -4,12 +4,6 @@ from loans.serializers import BusinessSerializer, LoanSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
 
-# Home page view, it loads the home page, from where all links are accessed
-def HomePage(request):
-    return render(request,'home_page.html')
-
-def AddViewBusinessForm(request):
-    return render(request,'business_form.html')
 
 class AddViewBusiness(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -25,9 +19,6 @@ class AddViewBusiness(APIView):
             return Response({'serializer': serializer, 'business_objects': business_objects})
         serializer.save()
         return redirect('/')
-
-def AddViewLoanForm(request):
-    return render(request,'loan_form.html')
 
 class AddViewLoan(APIView):
     renderer_classes = [TemplateHTMLRenderer]
