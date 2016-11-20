@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^business/', include('allauth.urls')),
     url(r'^loan/', include('allauth.urls')),
-    url(r'^$', home_page)
+    url(r'^$', HomePage)
 ]
