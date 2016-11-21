@@ -58,7 +58,7 @@ class ModelsTests(TestCase):
         loan_object.amount = 50000
         loan_object.reason = "Test Loan"
         loan_object.user = user_object
-        loan_object.business = business_object
+        loan_object.business_name = business_object
         loan_object.save()
 
 """

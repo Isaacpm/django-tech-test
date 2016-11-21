@@ -32,21 +32,21 @@ class UrlTests(TestCase):
 #We need to check that the home page url exist and it's being parsed correctly
 class UrlTests(TestCase):
 
-    def test_frontend_url_resolves_to_main_page(self):
+    def test_frontend_url_resolves_to_business_form(self):
         found = resolve('/business_form/')
         self.assertEqual(found.func, AddViewBusinessForm)
 
 #We need to check that the templates for the home page exist and pass some basic tests
-    def test_frontend_main_page_returns_correct_html_file(self):
+    def test_frontend_business_form_returns_correct_html_file(self):
         request = HttpRequest()
         response = AddViewBusinessForm(request)
         rendered_html = render_to_string('business_form.html')
         self.assertTrue(response.content.decode(), rendered_html)
 
-    def test_frontend_main_page_returns_correct_html_parts_unauthenticated_user(self):
+    def test_frontend_business_form_returns_correct_html_parts_unauthenticated_user(self):
         request = HttpRequest()
         response = AddViewBusinessForm(request)
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b'<h1>Please add your business here, or select a previous one</h1>', response.content)
-        self.assertIn(b'<form action="/business/" method="POST">', response.content)
+        self.assertIn(b'<form id=business_form action="/business/" method="POST">', response.content)
         self.assertTrue(response.content.endswith(b'</html>'))
