@@ -4,14 +4,14 @@
     <script src="http://malsup.github.com/jquery.form.js"></script> 
     </head>
     <body>
-        <h1>Please add your business here, or select a previous one</h1>
+        <h1>Please add your business here/h1>
 
         <form id=business_form action="{% url 'business' %}" method="POST">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Save">
         </form>
-        <h1>If you want a new loan for an existing business, please proceed to the loans form</h1>
+        <h1>Or, if you want a new loan for an existing business, please proceed to the loans form</h1>
         <a href="/loan_form/">Loans Form</a>
     </body>
     <script>
