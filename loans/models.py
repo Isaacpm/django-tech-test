@@ -27,6 +27,8 @@ class Business(models.Model):
     #Post code has a max of 9 characters
     post_code = models.CharField(max_length=9) 
     city_name = models.CharField(max_length=1024)
+    def __unicode__(self):
+       return self.business_name
 
 #Model used to define the Business data, assuming here a business could have more than one loan. So normalizing the loan information.
 class Loan(models.Model):
@@ -35,3 +37,5 @@ class Loan(models.Model):
     reason = models.CharField(max_length=1024)
     user = models.ForeignKey(User)
     business_name = models.ForeignKey(Business)
+    def __unicode__(self):
+       return self.reason

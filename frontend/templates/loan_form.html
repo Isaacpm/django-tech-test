@@ -1,20 +1,23 @@
-{% load rest_framework %}
-
 <html>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script> 
+    </head>
     <body>
+        <h1>Please fill in the data for the loand, and select the business you want to request the loan for</h1>
 
-        <h1>Loan - {{ loan.reason }}</h1>
-
-        <form onSubmit="return checkSubmission();">
+        <form id=loan_form action="{% url 'loan' %}" method="POST">
             {% csrf_token %}
-            {% render_form serializer %}
+            {{ form }}
             <input type="submit" value="Save">
         </form>
-        <script>
-            
-            function checkSubmission(){
-                document.location.href = '/';
-            }
-            </script>
     </body>
+    <script>
+        $(document).ready(function() { 
+            // bind 'myForm' and provide a simple callback function 
+            $('#loan_form').ajaxForm(function() { 
+                window.location.href = "/";
+            }); 
+        }); 
+    </script>
 </html>
