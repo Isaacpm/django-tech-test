@@ -1,3 +1,6 @@
+"""
+The custom signup form expands the default sign in form and adds phone number to the user profile used by all-auth
+"""
 from django import forms
 from loans.models import Profile 
 

@@ -1,4 +1,7 @@
-from __future__ import unicode_literals
+"""
+Loans application Models file, describes the data models used by the loan, and frontend applications
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
@@ -8,8 +11,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=100)
-
-#Model used to define the Business data
+"""
+Model used to define the Business data
+Adding the address as part of the business model was considered as a business should have only one address,
+and it's unlikely that different business will share the exact same address, even if being in the same building.
+City and post code may have been normalized but seemed an overkill for two small pieces of text.
+"""
 class Business(models.Model):
     BUSINESS_SECTORS = (
         ('RE','Retail'),
@@ -27,15 +34,17 @@ class Business(models.Model):
     #Post code has a max of 9 characters
     post_code = models.CharField(max_length=9) 
     city_name = models.CharField(max_length=1024)
+    #We want to return the business name to make a better display of information in the admin and input forms
     def __unicode__(self):
        return self.business_name
 
-#Model used to define the Business data, assuming here a business could have more than one loan. So normalizing the loan information.
+#Model used to define the Loan data, assuming a business could have more than one loan. So normalizing the loan information.
 class Loan(models.Model):
     amount = models.PositiveIntegerField(validators=[MinValueValidator(10000),MaxValueValidator(100000)])
     number_of_days = models.PositiveIntegerField()
     reason = models.CharField(max_length=1024)
     user = models.ForeignKey(User)
     business_name = models.ForeignKey(Business)
+    #The reason seemed to be the more appropiate field to return in order to identify loans, a combination of more fields could be used but it may difficult the presentation of the information
     def __unicode__(self):
        return self.reason

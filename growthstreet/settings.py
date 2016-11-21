@@ -25,8 +25,10 @@ SECRET_KEY = '8*31r0(wxr^ryvr9o&a85jr&g@yc8*g^-d&g_dk!ti2+obhx9!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#All hosts allowed as this is a test environment, to be set to the correct hosts in other environments
 ALLOWED_HOSTS = ['*']
 
+#Required to run the server for testing
 SITE_ID = 1
 
 #Redirection to home page after login, we need to do this as we don't have a profile page. Which is the default redirection
@@ -35,6 +37,7 @@ LOGIN_REDIRECT_URL = "/"
 # Application definition
 
 INSTALLED_APPS = (
+    #Default django applications, require for basic functionality
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,10 +45,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    #Authetication applications from allauth package
     'allauth',
     'allauth.socialaccount',
     'allauth.account',
+    #Rest Framework applications, required for the backend
     'rest_framework',
+    #Growt Street applications
     'loans',
     'frontend'
 )
@@ -64,6 +70,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'growthstreet.urls'
 
+#Defining the templates as a subfolder in each application folder
+#Maybe change this in production to have all templates in a more structured folder structure
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -83,8 +91,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'growthstreet.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+#Using sqlite database to store the data, being a test environment we don't need another RMDB
 
 DATABASES = {
     'default': {
@@ -123,6 +130,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ],
+    #Changing the default response from rest framework to JSON, which is more appropriate for a backend application
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     )

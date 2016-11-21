@@ -1,8 +1,9 @@
+"""
+Tests for the loans application, we want to tests the models and the rest api responses
+"""
 from django.test import TestCase
 from django.contrib.auth.models import User
 from loans.models import Business, Loan
-#To be recovered when fixing the signup tests from forms from allauth.socialaccount.views import signup
-
 
 #Tests for the DB models
 class ModelsTests(TestCase):
@@ -60,32 +61,4 @@ class ModelsTests(TestCase):
         loan_object.user = user_object
         loan_object.business_name = business_object
         loan_object.save()
-
-"""
-#Tests for the User Signup function
-We need to fix this to use the signup forms through http request
-class UserSignupTests(TestCase):
-    def test_signingup_user_POST_request(self):
-        request = HttpRequest()
-        request.method = "POST"
-        request.POST['name'] = "Test"
-        request.POST['phone_number'] = "12345678"
-        request.POST['email'] = "test@testing.com"
-        response = signup(request)
-
-        check to see if the user was added to fix later, as it's not using the same DB for the test as for the insertion, the test db is temp
-        new_user = User.objects.first()
-        self.assertEqual(new_user.name, 'Test')
-
-    def test_signingup_user_POST_request_redirection(self):
-        request = HttpRequest()
-        request.method = "POST"
-        request.POST['name'] = "Test"
-        request.POST['phone_number'] = "12345678"
-        request.POST['email'] = "test@testing.com"
-        response = signup(request)
-        
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
-"""
 

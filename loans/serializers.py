@@ -1,6 +1,10 @@
+"""
+Serializer definition file, we will use the serializers in this page to interact with the application models through the REST Framework
+"""
+
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
-#We are going to use all the classes from the models file
+#We are only going to need the Business and Loan classes from the loans models
 from loans.models import Business, Loan
 
 class BusinessSerializer(serializers.ModelSerializer):

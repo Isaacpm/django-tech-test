@@ -10,28 +10,48 @@
     <h2>These are all your other loans:</h2>
     <div id="loans_container">
     </div>
+    <h2>These are all your Business:</h2>
+    <div id="business_container">
+    </div>
     <a href="/">Home Page</a>
     </body>
     <script>
         $(document).ready(function() { 
+            //Loads the data from the loans for the current user
             $.get( "/loan/", function( data ) {
                 latest_loan = data[data.length-1]
               $( "#latest_loan_container" )
                 .append("<p>")
-                .append( "Business Name: " + latest_loan.number_of_days )
+                .append("Business Name: " + latest_loan.business_name )
                 .append( " Amount: " + latest_loan.amount )
                 .append( " Number of Days: " + latest_loan.number_of_days )
-                .append( " Reason: " + latest_loan.number_of_days )
+                .append( " Reason: " + latest_loan.reason )
                 .append("</p>");
+                //Removing last object from data, as this was show in the latest loan section
                 for (var i = 0; i < data.length-1; i++) { 
                     $( "#loans_container" )
                     .append("<p>")
-                    .append( "Business Name: " + data[i].number_of_days )
+                    .append("Business Name: " + data[i].business_name )
                     .append( " Amount: " + data[i].amount )
                     .append( " Number of Days: " + data[i].number_of_days )
-                    .append( " Reason: " + data[i].number_of_days )
+                    .append( " Reason: " + data[i].reason )
                     .append("</p>");
-                }
+                };
+
+            }, "json" );
+            //Loads the data from the business for the current user
+            $.get( "/business/", function( data ) {
+                for (var i = 0; i < data.length; i++) { 
+                    $( "#business_container" )
+                    .append("<p>")
+                    .append("Business Name: " + data[i].business_name )
+                    .append( "Registered Company Number: " + data[i].registered_company_number )
+                    .append( "Business Sector: " + data[i].business_sector )
+                    .append( "Post Code: " + data[i].post_code )
+                    .append( "City: " + data[i].city_name )
+                    .append("</p>");
+                };
+                
             }, "json" );
         }); 
 

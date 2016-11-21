@@ -1,3 +1,8 @@
+"""
+Front end application tests file.
+We want to test different aspects of the front end, but mainly that the pages present required html elements and that the
+forms to input and show data are working.
+"""
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from frontend.views import HomePage, AddViewBusinessForm, AddViewLoanForm, UserPage
