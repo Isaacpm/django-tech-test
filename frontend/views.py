@@ -12,3 +12,6 @@ def AddViewBusinessForm(request):
 def AddViewLoanForm(request):
     form = LoanForm()
     return render(request,'loan_form.html', {'form': form})
+
+def UserPage(request):
+    return render(request,'user_page.html')

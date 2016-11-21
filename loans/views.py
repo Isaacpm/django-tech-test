@@ -14,5 +14,5 @@ class AddViewBusiness(generics.ListCreateAPIView):
     serializer_class = BusinessSerializer
 
 class AddViewLoan(generics.ListCreateAPIView):
-    queryset = Business.objects.all()
+    queryset = Loan.objects.all()
     serializer_class = LoanSerializer

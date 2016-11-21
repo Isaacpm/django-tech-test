@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Thanks, your loan request has been received and it's being proccessed</h1>
+        These are the details of your latest loan:
+    <div id="latest_loan_container">
+    </div>
+    These are all your other loans:
+    <div id="loans_container">
+    </div>
+    </body>
+    <script>
+        $(document).ready(function() { 
+            $.get( "/loan/", function( data ) {
+                latest_loan = data[data.length-1]
+              $( "#latest_loan_container" )
+                .append( "Business Name: " + latest_loan.number_of_days )
+                .append( "Amount: " + latest_loan.amount )
+                .append( "Number of Days: " + latest_loan.number_of_days )
+                .append( "Reason: " + latest_loan.number_of_days );
+                for (var i = 0; i < data.length-1; i++) { 
+                    $( "#loans_container" )
+                    .append( "Business Name: " + data[i].number_of_days )
+                    .append( "Amount: " + data[i].amount )
+                    .append( "Number of Days: " + data[i].number_of_days )
+                    .append( "Reason: " + data[i].number_of_days );
+                }
+            }, "json" );
+        }); 
+
+
+    </script>
+</html>
