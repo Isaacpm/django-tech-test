@@ -9,6 +9,8 @@ from frontend.views import HomePage, AddViewBusinessForm, AddViewLoanForm, UserP
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
+from rest_framework import status
 
 #To be recovered when fixing the signup tests from forms from allauth.socialaccount.views import signup
 
@@ -37,13 +39,14 @@ class UrlTestsMainPage(TestCase):
 
 #Tests for the home page Authenticated
 class UrlTestsMainPage(TestCase):
+
+    #We need to create a user to be used by the authentication in all tests 
     def setUp(self):
-        user = User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
+        User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
 
     def test_frontend_main_page_returns_correct_html_parts(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/')
-        user = User.objects.get(username='temp_user')
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b'Welcome', response.content)
         self.assertIn(b'<a href="business_form/">Request loan</a>', response.content)
@@ -53,9 +56,10 @@ class UrlTestsMainPage(TestCase):
 
 #Tests for the Business form 
 class UrlTestsBusinessForm(TestCase):
-    #The business form needs to be used by authenticated users, we create the user to be used for the other tests first
+
+    #We need to create a user to be used by the authentication in all tests 
     def setUp(self):
-        user = User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
+        User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
 
     #We need to check that the business form url exist and it's being parsed correctly
     def test_frontend_url_resolves_to_business_form(self):
@@ -66,14 +70,12 @@ class UrlTestsBusinessForm(TestCase):
     def test_frontend_business_form_returns_correct_html_file(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/business_form/')
-        user = User.objects.get(username='temp_user')
         rendered_html = render_to_string('business_form.html')
         self.assertTrue(response.content.decode(), rendered_html)
 
     def test_frontend_business_form_returns_correct_html_parts_sample(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/business_form/')
-        user = User.objects.get(username='temp_user')
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b'<h1>Please add your business here, or select a previous one</h1>', response.content)
         self.assertIn(b'<form id=business_form action="/business/" method="POST">', response.content)
@@ -85,9 +87,10 @@ class UrlTestsBusinessForm(TestCase):
 
 #Tests for the Loan form 
 class UrlTestsLoanForm(TestCase):
-    #The Loan form needs to be used by authenticated users, we create the user to be used for the other tests first
+
+    #We need to create a user to be used by the authentication in all tests 
     def setUp(self):
-        user = User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
+        User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
 
     #We need to check that the loan form url exist and it's being parsed correctly
     def test_frontend_url_resolves_to_loan_form(self):
@@ -98,14 +101,12 @@ class UrlTestsLoanForm(TestCase):
     def test_frontend_loan_form_returns_correct_html_file(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/loan_form/')
-        user = User.objects.get(username='temp_user')
         rendered_html = render_to_string('loan_form.html')
         self.assertTrue(response.content.decode(), rendered_html)
 
     def test_frontend_loan_form_returns_correct_html_parts_sample(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/loan_form/')
-        user = User.objects.get(username='temp_user')
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b'<h1>Please fill in the data for the loand, and select the business you want to request the loan for</h1>', response.content)
         self.assertIn(b'<form id=loan_form action="/loan/" method="POST">', response.content)
@@ -117,9 +118,9 @@ class UrlTestsLoanForm(TestCase):
 
 #Tests for the User page form 
 class UrlTestsUserPage(TestCase):
-    #The User page needs to be used by authenticated users, we create the user to be used for the other tests first
+    #We need to create a user to be used by the authentication in all tests 
     def setUp(self):
-        user = User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
+        User.objects.create_user('temp_user', 'temporary@gmail.com', 'temp_user_password')
 
     #We need to check that the user page form url exist and it's being parsed correctly
     def test_frontend_url_resolves_to_user_page(self):
@@ -130,16 +131,16 @@ class UrlTestsUserPage(TestCase):
     def test_frontend_user_page_returns_correct_html_file(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/user_page/')
-        user = User.objects.get(username='temp_user')
         rendered_html = render_to_string('user_page.html')
         self.assertTrue(response.content.decode(), rendered_html)
 
     def test_frontend_user_page_returns_correct_html_parts(self):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/user_page/')
-        user = User.objects.get(username='temp_user')
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b"<h1>Thanks, your loan request has been received and it's being proccessed</h1>", response.content)
         self.assertIn(b'<h2>These are the details of your latest loan:</h2>', response.content)
         self.assertIn(b'<h2>These are all your other loans:</h2>', response.content)
         self.assertTrue(response.content.endswith(b'</html>'))
+
+
