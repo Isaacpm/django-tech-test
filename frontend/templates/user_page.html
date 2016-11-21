@@ -4,28 +4,33 @@
     </head>
     <body>
         <h1>Thanks, your loan request has been received and it's being proccessed</h1>
-        These are the details of your latest loan:
+        <h2>These are the details of your latest loan:</h2>
     <div id="latest_loan_container">
     </div>
-    These are all your other loans:
+    <h2>These are all your other loans:</h2>
     <div id="loans_container">
     </div>
+    <a href="/">Home Page</a>
     </body>
     <script>
         $(document).ready(function() { 
             $.get( "/loan/", function( data ) {
                 latest_loan = data[data.length-1]
               $( "#latest_loan_container" )
+                .append("<p>")
                 .append( "Business Name: " + latest_loan.number_of_days )
-                .append( "Amount: " + latest_loan.amount )
-                .append( "Number of Days: " + latest_loan.number_of_days )
-                .append( "Reason: " + latest_loan.number_of_days );
+                .append( " Amount: " + latest_loan.amount )
+                .append( " Number of Days: " + latest_loan.number_of_days )
+                .append( " Reason: " + latest_loan.number_of_days )
+                .append("</p>");
                 for (var i = 0; i < data.length-1; i++) { 
                     $( "#loans_container" )
+                    .append("<p>")
                     .append( "Business Name: " + data[i].number_of_days )
-                    .append( "Amount: " + data[i].amount )
-                    .append( "Number of Days: " + data[i].number_of_days )
-                    .append( "Reason: " + data[i].number_of_days );
+                    .append( " Amount: " + data[i].amount )
+                    .append( " Number of Days: " + data[i].number_of_days )
+                    .append( " Reason: " + data[i].number_of_days )
+                    .append("</p>");
                 }
             }, "json" );
         }); 
