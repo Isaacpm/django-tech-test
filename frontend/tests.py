@@ -77,7 +77,7 @@ class UrlTestsBusinessForm(TestCase):
         self.client.login(username='temp_user', password='temp_user_password')
         response = self.client.get('/business_form/')
         self.assertTrue(response.content.startswith(b'<html>'))
-        self.assertIn(b'<h1>Please add your business here, or select a previous one</h1>', response.content)
+        self.assertIn(b'<h1>Please add your business here</h1>', response.content)
         self.assertIn(b'<form id=business_form action="/business/" method="POST">', response.content)
         self.assertIn(b'Registered company number:', response.content)
         self.assertIn(b'Business sector:', response.content)
